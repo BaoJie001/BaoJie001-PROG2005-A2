@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Inventory Management System - Part 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Inventory Management System</h1>
+        
+        <!-- Add/Edit Form -->
+        <div class="form-section">
+            <h2>Add / Edit Item</h2>
+            <input type="text" id="itemId" placeholder="Item ID (Unique)" required>
+            <input type="text" id="itemName" placeholder="Item Name" required>
+            <select id="category">
+                <option value="">Select Category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Tools">Tools</option>
+                <option value="Miscellaneous">Miscellaneous</option>
+            </select>
+            <input type="number" id="quantity" placeholder="Quantity" required>
+            <input type="number" id="price" placeholder="Price" required>
+            <input type="text" id="supplier" placeholder="Supplier Name" required>
+            <select id="stockStatus">
+                <option value="In Stock">In Stock</option>
+                <option value="Low Stock">Low Stock</option>
+                <option value="Out of Stock">Out of Stock</option>
+            </select>
+            <select id="popular">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+            <input type="text" id="comment" placeholder="Comment (Optional)">
+            <button id="addBtn">➕ Add Item</button>
+            <button id="updateBtn">✏️ Update by Name</button>
+        </div>
+
+        <!-- Search and Actions -->
+        <div class="search-section">
+            <input type="text" id="searchName" placeholder="Search by Item Name">
+            <button id="searchBtn">🔍 Search</button>
+            <button id="deleteBtn">🗑️ Delete by Name</button>
+            <button id="showAllBtn">📋 Show All Items</button>
+            <button id="showPopularBtn">⭐ Show Popular Items</button>
+        </div>
+
+        <!-- Display Area -->
+        <div class="display-section">
+            <h2>Item List</h2>
+            <div id="inventoryList"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
