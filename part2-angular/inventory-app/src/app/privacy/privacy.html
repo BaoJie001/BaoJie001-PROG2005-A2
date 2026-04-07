@@ -1,0 +1,48 @@
+<div class="privacy-container">
+    <h1>🔒 Privacy & Security Analysis</h1>
+    
+    <div class="content-section">
+        <h2>Data Collection & Storage</h2>
+        <p>This inventory management application operates entirely within your browser. No data is sent to any external server or stored permanently. All inventory data exists only in your browser's memory during the current session and will be lost when you close the browser tab or window.</p>
+        
+        <h2>Data Types Stored</h2>
+        <ul>
+            <li><strong>Item Information:</strong> ID, Name, Category, Quantity, Price, Supplier Name</li>
+            <li><strong>Status Information:</strong> Stock Status (In Stock, Low Stock, Out of Stock)</li>
+            <li><strong>Popularity:</strong> Whether an item is marked as popular</li>
+            <li><strong>Optional Comments:</strong> Any additional notes provided by the user</li>
+        </ul>
+        
+        <h2>Security Measures</h2>
+        <ul>
+            <li><strong>No External Communication:</strong> The app does not make any HTTP requests or API calls</li>
+            <li><strong>Input Validation:</strong> All user inputs are validated before processing</li>
+            <li><strong>XSS Protection:</strong> User input is properly escaped to prevent cross-site scripting attacks</li>
+            <li><strong>Client-Side Only:</strong> No data leaves your device</li>
+        </ul>
+        
+        <h2>User Privacy Considerations</h2>
+        <ul>
+            <li><strong>No Tracking:</strong> This application does not use cookies, analytics, or any tracking mechanisms</li>
+            <li><strong>No Personal Data:</strong> No personally identifiable information is collected or stored</li>
+            <li><strong>Session Isolation:</strong> Each browser session is completely isolated from others</li>
+            <li><strong>No Data Sharing:</strong> Information is never shared with third parties</li>
+        </ul>
+        
+        <h2>Security Recommendations for Mobile Devices</h2>
+        <ul>
+            <li>Always keep your device's operating system and browser updated</li>
+            <li>Use a secure lock screen on your mobile device</li>
+            <li>Avoid using public or unsecured Wi-Fi networks when handling sensitive inventory data</li>
+            <li>Clear your browser cache if you want to ensure no residual data remains</li>
+            <li>Log out of shared devices after using the application</li>
+        </ul>
+        
+        <h2>Compliance Notes</h2>
+        <p>This application is designed for educational purposes and demonstrates basic security principles. For production use with sensitive data, additional measures such as server-side validation, encryption, and authentication would be required.</p>
+        
+        <div class="warning-box">
+            <strong>⚠️ Important Notice:</strong> This application does not provide persistent data storage. All data will be lost when the browser is closed. For long-term inventory management, consider implementing backend database integration.
+        </div>
+    </div>
+</div>

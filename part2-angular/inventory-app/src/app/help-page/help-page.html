@@ -1,0 +1,71 @@
+<div class="help-container">
+    <h1>❓ Help & FAQ</h1>
+    
+    <div class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <h3>📌 How do I add a new item to inventory?</h3>
+            <p>Go to the <strong>Inventory</strong> page, fill in all required fields (Item Name, Category, Quantity, Price, Supplier Name, Stock Status, Popular Status), and click the <strong>"Add Item"</strong> button. The system will automatically generate a unique ID for the item.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>📌 How do I update an existing item?</h3>
+            <p>On the <strong>Inventory</strong> page, enter the exact item name in the "Item Name" field, update the other fields as needed, and click the <strong>"Update by Name"</strong> button. Note that the item name cannot be changed.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>📌 How do I delete an item?</h3>
+            <p>On the <strong>Inventory</strong> page, enter the item name in the search box under "Search & Actions", then click the <strong>"Delete by Name"</strong> button. A confirmation prompt will appear to prevent accidental deletion.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>📌 How do I search for items?</h3>
+            <p>Go to the <strong>Search</strong> page. You can search by item name (partial matches work), and filter by category and stock status. Click "Search" to see results.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>📌 What does "Popular Item" mean?</h3>
+            <p>Popular items are marked with "Yes" in the Popular field. You can view only popular items by clicking the <strong>"Show Popular Items"</strong> button on the Inventory page.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>📌 Is my data saved after closing the browser?</h3>
+            <p><strong>No.</strong> This application is designed for a single session only. All data will be lost when you close the browser tab or window. For persistent storage, a backend database would be required.</p>
+        </div>
+    </div>
+    
+    <div class="troubleshooting-section">
+        <h2>🔧 Troubleshooting Guide</h2>
+        
+        <div class="trouble-item">
+            <h3>❌ "Item with this name already exists" error</h3>
+            <p>Item names must be unique. Use the "Update by Name" feature to modify an existing item instead of adding a duplicate.</p>
+        </div>
+        
+        <div class="trouble-item">
+            <h3>❌ Item not found when updating or deleting</h3>
+            <p>Make sure you are entering the exact item name (case-insensitive). Check for extra spaces or typos.</p>
+        </div>
+        
+        <div class="trouble-item">
+            <h3>❌ Form validation errors</h3>
+            <p>All required fields (marked with *) must be filled. Quantity and Price must be positive numbers. Category must be selected from the dropdown.</p>
+        </div>
+        
+        <div class="trouble-item">
+            <h3>❌ No items appear in the list</h3>
+            <p>Click the "Show All Items" button on the Inventory page. If still empty, try adding a new item using the form.</p>
+        </div>
+        
+        <div class="trouble-item">
+            <h3>❌ Page not loading or displaying correctly</h3>
+            <p>Clear your browser cache and refresh the page (Ctrl+F5 on Windows, Cmd+Shift+R on Mac). Make sure you're running <code>ng serve</code> in the terminal.</p>
+        </div>
+    </div>
+    
+    <div class="contact-section">
+        <h2>📧 Need More Help?</h2>
+        <p>If you continue to experience issues, please contact your course instructor or refer to the Angular documentation at <a href="https://angular.io/docs" target="_blank">angular.io/docs</a>.</p>
+    </div>
+</div>
