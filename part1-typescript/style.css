@@ -1,3 +1,11 @@
+/* ============================================
+   Author: Jie Bao
+   Student ID: 24831941
+   Assignment: PROG2005 Assessment 2 - Part 1
+   File: style.css
+   Description: Responsive styling for inventory management system with mobile and desktop support
+   ============================================ */
+
 * {
     box-sizing: border-box;
     margin: 0;

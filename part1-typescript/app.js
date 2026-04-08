@@ -6,14 +6,94 @@
 // ============================================
 // Global inventory array
 let inventory = [];
-// Helper: Generate a new unique ID
+// ============================================
+// Custom Confirmation Dialog (replaces confirm())
+// ============================================
+function showCustomConfirm(message, onConfirm) {
+    // Create overlay div
+    const overlay = document.createElement("div");
+    overlay.id = "customConfirmOverlay";
+    overlay.style.position = "fixed";
+    overlay.style.top = "0";
+    overlay.style.left = "0";
+    overlay.style.width = "100%";
+    overlay.style.height = "100%";
+    overlay.style.backgroundColor = "rgba(0,0,0,0.5)";
+    overlay.style.display = "flex";
+    overlay.style.justifyContent = "center";
+    overlay.style.alignItems = "center";
+    overlay.style.zIndex = "1000";
+    // Create dialog box
+    const dialog = document.createElement("div");
+    dialog.style.backgroundColor = "white";
+    dialog.style.padding = "20px";
+    dialog.style.borderRadius = "12px";
+    dialog.style.boxShadow = "0 4px 20px rgba(0,0,0,0.3)";
+    dialog.style.maxWidth = "400px";
+    dialog.style.width = "90%";
+    dialog.style.textAlign = "center";
+    // Message
+    const msg = document.createElement("p");
+    msg.textContent = message;
+    msg.style.margin = "0 0 20px 0";
+    msg.style.fontSize = "16px";
+    msg.style.color = "#333";
+    // Button container
+    const btnContainer = document.createElement("div");
+    btnContainer.style.display = "flex";
+    btnContainer.style.gap = "10px";
+    btnContainer.style.justifyContent = "center";
+    // Confirm button
+    const confirmBtn = document.createElement("button");
+    confirmBtn.textContent = "Confirm";
+    confirmBtn.style.backgroundColor = "#dc3545";
+    confirmBtn.style.color = "white";
+    confirmBtn.style.border = "none";
+    confirmBtn.style.padding = "10px 20px";
+    confirmBtn.style.borderRadius = "6px";
+    confirmBtn.style.cursor = "pointer";
+    confirmBtn.style.fontSize = "14px";
+    // Cancel button
+    const cancelBtn = document.createElement("button");
+    cancelBtn.textContent = "Cancel";
+    cancelBtn.style.backgroundColor = "#6c757d";
+    cancelBtn.style.color = "white";
+    cancelBtn.style.border = "none";
+    cancelBtn.style.padding = "10px 20px";
+    cancelBtn.style.borderRadius = "6px";
+    cancelBtn.style.cursor = "pointer";
+    cancelBtn.style.fontSize = "14px";
+    // Confirm action
+    confirmBtn.onclick = () => {
+        document.body.removeChild(overlay);
+        onConfirm();
+    };
+    // Cancel action
+    cancelBtn.onclick = () => {
+        document.body.removeChild(overlay);
+    };
+    // Close when clicking outside
+    overlay.onclick = (e) => {
+        if (e.target === overlay) {
+            document.body.removeChild(overlay);
+        }
+    };
+    btnContainer.appendChild(confirmBtn);
+    btnContainer.appendChild(cancelBtn);
+    dialog.appendChild(msg);
+    dialog.appendChild(btnContainer);
+    overlay.appendChild(dialog);
+    document.body.appendChild(overlay);
+}
+// ============================================
+// Helper Functions
+// ============================================
 function generateNewId() {
     if (inventory.length === 0)
         return 1;
     const maxId = Math.max(...inventory.map(item => item.id));
     return maxId + 1;
 }
-// Helper: Validate required fields
 function validateItem(item) {
     if (!item.name || item.name.trim() === "")
         return "Item Name is required";
@@ -31,7 +111,17 @@ function validateItem(item) {
         return "Popular status is required";
     return null;
 }
-// Helper: Render inventory to HTML
+function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function (m) {
+        if (m === "&")
+            return "&amp;";
+        if (m === "<")
+            return "&lt;";
+        if (m === ">")
+            return "&gt;";
+        return m;
+    });
+}
 function renderInventory(items) {
     const container = document.getElementById("inventoryList");
     if (!container)
@@ -58,30 +148,14 @@ function renderInventory(items) {
     }
     container.innerHTML = html;
 }
-// Simple escape function to prevent XSS
-function escapeHtml(str) {
-    return str.replace(/[&<>]/g, function (m) {
-        if (m === "&")
-            return "&amp;";
-        if (m === "<")
-            return "&lt;";
-        if (m === ">")
-            return "&gt;";
-        return m;
-    });
-}
-// Display all items
 function displayAllItems() {
     renderInventory(inventory);
 }
-// Display only popular items (popular === true)
 function displayPopularItems() {
     const popularItems = inventory.filter(item => item.popular === true);
     renderInventory(popularItems);
 }
-// Add a new item
 function addItem() {
-    // Get form values
     const id = generateNewId();
     const name = document.getElementById("itemName").value.trim();
     const category = document.getElementById("category").value;
@@ -92,42 +166,28 @@ function addItem() {
     const popularValue = document.getElementById("popular").value;
     const popular = popularValue === "Yes";
     const comment = document.getElementById("comment").value.trim() || undefined;
-    // Check for duplicate ID (should not happen with generateNewId, but just in case)
-    if (inventory.some(item => item.id === id)) {
-        showMessage("Error: Duplicate ID detected", "error");
-        return false;
-    }
-    // Check for duplicate name
     if (inventory.some(item => item.name.toLowerCase() === name.toLowerCase())) {
         showMessage("Error: Item with this name already exists. Use Update to modify.", "error");
         return false;
     }
-    // Create new item
     const newItem = {
-        id,
-        name,
-        category,
+        id, name, category,
         quantity: isNaN(quantity) ? 0 : quantity,
         price: isNaN(price) ? 0 : price,
-        supplier,
-        stockStatus,
-        popular,
-        comment
+        supplier, stockStatus, popular, comment
     };
-    // Validate
     const validationError = validateItem(newItem);
     if (validationError) {
         showMessage(`Validation Error: ${validationError}`, "error");
         return false;
     }
-    // Add to inventory
     inventory.push(newItem);
     clearForm();
     displayAllItems();
     showMessage(`Item "${name}" added successfully!`, "success");
     return true;
 }
-// Delete item by name (with confirmation)
+// Delete item by name with CUSTOM confirmation (no confirm())
 function deleteItemByName() {
     const name = document.getElementById("searchName").value.trim();
     if (!name) {
@@ -139,15 +199,14 @@ function deleteItemByName() {
         showMessage(`Item "${name}" not found`, "error");
         return;
     }
-    const confirmDelete = confirm(`Are you sure you want to delete "${item.name}"?`);
-    if (confirmDelete) {
+    // Use custom confirm instead of native confirm()
+    showCustomConfirm(`Are you sure you want to delete "${item.name}"?`, () => {
         inventory = inventory.filter(i => i.id !== item.id);
         displayAllItems();
         clearForm();
         showMessage(`Item "${name}" deleted successfully!`, "success");
-    }
+    });
 }
-// Search item by name and display
 function searchItemByName() {
     const name = document.getElementById("searchName").value.trim();
     if (!name) {
@@ -164,7 +223,6 @@ function searchItemByName() {
         showMessage(`Found ${foundItems.length} item(s) matching "${name}"`, "success");
     }
 }
-// Update item by name
 function updateItemByName() {
     const name = document.getElementById("itemName").value.trim();
     if (!name) {
@@ -176,7 +234,6 @@ function updateItemByName() {
         showMessage(`Item "${name}" not found`, "error");
         return;
     }
-    // Get updated values from form
     const category = document.getElementById("category").value;
     const quantity = parseInt(document.getElementById("quantity").value);
     const price = parseFloat(document.getElementById("price").value);
@@ -185,7 +242,6 @@ function updateItemByName() {
     const popularValue = document.getElementById("popular").value;
     const popular = popularValue === "Yes";
     const comment = document.getElementById("comment").value.trim() || undefined;
-    // Build updated item (keep ID and name unchanged)
     const updatedItem = {
         ...existingItem,
         category: category || existingItem.category,
@@ -196,20 +252,17 @@ function updateItemByName() {
         popular,
         comment
     };
-    // Validate
     const validationError = validateItem(updatedItem);
     if (validationError) {
         showMessage(`Validation Error: ${validationError}`, "error");
         return;
     }
-    // Update in array
     const index = inventory.findIndex(i => i.id === existingItem.id);
     inventory[index] = updatedItem;
     clearForm();
     displayAllItems();
     showMessage(`Item "${name}" updated successfully!`, "success");
 }
-// Clear form inputs
 function clearForm() {
     document.getElementById("itemId").value = "";
     document.getElementById("itemName").value = "";
@@ -222,7 +275,6 @@ function clearForm() {
     document.getElementById("comment").value = "";
     document.getElementById("searchName").value = "";
 }
-// Show temporary message (using innerHTML instead of alert)
 function showMessage(msg, type) {
     const container = document.getElementById("inventoryList");
     if (!container)
@@ -236,23 +288,20 @@ function showMessage(msg, type) {
     messageDiv.style.color = type === "success" ? "#155724" : "#721c24";
     messageDiv.style.border = `1px solid ${type === "success" ? "#c3e6cb" : "#f5c6cb"}`;
     messageDiv.innerText = msg;
-    // Insert at top of container
     if (container.firstChild) {
         container.insertBefore(messageDiv, container.firstChild);
     }
     else {
         container.appendChild(messageDiv);
     }
-    // Remove after 3 seconds
     setTimeout(() => {
         if (messageDiv.parentNode) {
             messageDiv.remove();
         }
     }, 3000);
 }
-// Initialize: Add some sample data and bind events
+// Initialize
 document.addEventListener("DOMContentLoaded", () => {
-    // Sample data for testing
     const sampleItems = [
         { id: 1, name: "Laptop", category: "Electronics", quantity: 10, price: 999.99, supplier: "TechSupply", stockStatus: "In Stock", popular: true, comment: "High demand" },
         { id: 2, name: "Desk Chair", category: "Furniture", quantity: 5, price: 149.99, supplier: "OfficeMart", stockStatus: "Low Stock", popular: false, comment: "" },
@@ -260,7 +309,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
     inventory = sampleItems;
     displayAllItems();
-    // Bind button events
     document.getElementById("addBtn")?.addEventListener("click", addItem);
     document.getElementById("updateBtn")?.addEventListener("click", updateItemByName);
     document.getElementById("deleteBtn")?.addEventListener("click", deleteItemByName);
