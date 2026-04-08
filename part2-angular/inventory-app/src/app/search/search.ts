@@ -1,3 +1,11 @@
+// ============================================
+// Author: Jie Bao
+// Student ID: 24831941
+// Assignment: PROG2005 Assessment 2 - Part 2
+// File: search.ts
+// Description: Search page component - search items by name with category and stock status filters
+// ============================================
+
 import { Component } from '@angular/core';
 
 export interface InventoryItem {

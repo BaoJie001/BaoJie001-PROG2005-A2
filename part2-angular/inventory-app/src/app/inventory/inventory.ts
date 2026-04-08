@@ -1,3 +1,11 @@
+// ============================================
+// Author: Jie Bao
+// Student ID: 24831941
+// Assignment: PROG2005 Assessment 2 - Part 2
+// File: inventory.ts
+// Description: Inventory management component - add, edit, delete, display all, display popular items
+// ============================================
+
 import { Component } from '@angular/core';
 
 export interface InventoryItem {

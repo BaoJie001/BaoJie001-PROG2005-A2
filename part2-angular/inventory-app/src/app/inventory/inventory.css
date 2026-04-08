@@ -1,3 +1,11 @@
+/* ============================================
+   Author: Jie Bao
+   Student ID: 24831941
+   Assignment: PROG2005 Assessment 2 - Part 2
+   File: inventory.css
+   Description: Styling for inventory page including forms, item cards, buttons, and custom confirmation dialog
+   ============================================ */
+
 .inventory-container {
     max-width: 1000px;
     margin: 0 auto;

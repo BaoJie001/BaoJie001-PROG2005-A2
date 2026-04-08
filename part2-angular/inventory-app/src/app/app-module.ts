@@ -1,3 +1,11 @@
+// ============================================
+// Author: Jie Bao
+// Student ID: 24831941
+// Assignment: PROG2005 Assessment 2 - Part 2
+// File: app-module.ts
+// Description: Main module that declares all components and imports required modules
+// ============================================
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';

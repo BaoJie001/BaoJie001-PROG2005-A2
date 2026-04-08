@@ -1,3 +1,11 @@
+// ============================================
+// Author: Jie Bao
+// Student ID: 24831941
+// Assignment: PROG2005 Assessment 2 - Part 2
+// File: app.ts
+// Description: Root component of Angular application with navigation menu
+// ============================================
+
 import { Component, signal } from '@angular/core';
 
 @Component({

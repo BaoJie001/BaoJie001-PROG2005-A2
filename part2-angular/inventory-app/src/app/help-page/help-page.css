@@ -1,3 +1,11 @@
+/* ============================================
+   Author: Jie Bao
+   Student ID: 24831941
+   Assignment: PROG2005 Assessment 2 - Part 2
+   File: help-page.css
+   Description: Styling for help page including FAQ items, trouble items, and responsive design
+   ============================================ */
+
 .help-container {
     max-width: 900px;
     margin: 0 auto;

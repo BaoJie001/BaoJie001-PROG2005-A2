@@ -1,3 +1,11 @@
+// ============================================
+// Author: Jie Bao
+// Student ID: 24831941
+// Assignment: PROG2005 Assessment 2 - Part 2
+// File: app-routing-module.ts
+// Description: Routing configuration for 5 pages: Home, Inventory, Search, Privacy, Help
+// ============================================
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Home } from './home/home';
